@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Đơn ứng tuyển</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .error-field {
+        border: 1px solid red;
+      }
+
+      .error-message {
+        color: red;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <img src="./logos/nidec.jpg" class="img-responsive" />
+          <p>Nidec</p>
+        </div>
+        <div class="col-sm-4">
+          <img src="./logos/nidec_sankyo.jpg" class="img-responsive" />
+          <p>Nidec Sankyo</p>
+        </div>
+        <div class="col-sm-4">
+          <img src="./logos/nidec_servo.jpg" class="img-responsive" />
+          <p>Nidec Servo</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <img src="./logos/schneider.jpg" class="img-responsive" />
+          <p>Schneider</p>
+        </div>
+        <div class="col-sm-4">
+          <img src="./logos/jabil.jpg" class="img-responsive" />
+          <p>Jabil</p>
+        </div>
+        <div class="col-sm-4">
+          <img src="./logos/fapv.jpg" class="img-responsive" />
+          <p>Fapv</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <img src="./logos/nipro.jpg" class="img-responsive" />
+          <p>Nipro</p>
+        </div>
+        <div class="col-sm-4">
+          <img src="./logos/tcl.jpg" class="img-responsive" />
+          <p>TCL</p>
+        </div>
+        <div class="col-sm-4">
+          <img src="./logos/tti.jpg" class="img-responsive" />
+          <p>TTi</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <img src="./logos/yazaki.jpg" class="img-responsive" />
+          <p>Yazaki</p>
+        </div>
+      </div>
+    </div>
+    <div id="dialog" class="modal fade">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title">Form</h1>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="item-form">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Họ và Tên:</label>
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control required-field"
+                    name="name"
+                  />
+                  <span class="error-message"></span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Số điện thoại:</label>
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control required-field"
+                    name="phone"
+                  />
+                  <span class="error-message"></span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Địa chỉ:</label>
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control required-field"
+                    name="address"
+                  />
+                  <span class="error-message"></span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Giới tính:</label>
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control required-field"
+                    name="gender"
+                  />
+                  <span class="error-message"></span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Ngày sinh:</label>
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control datepicker required-field"
+                    name="birthday"
+                  />
+                  <span class="error-message"></span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Tin Nhắn:</label>
+                <div class="col-sm-8">
+                  <textarea class="form-control" name="message"></textarea>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        $(".datepicker").datepicker({
+          format: "dd-mm-yyyy",
+          startView: "months",
+          minViewMode: "months",
+          autoclose: true,
+        });
+      });
+
+      // Show the dialog (popup) when an item is clicked
+      $(".col-sm-4").click(function () {
+        $("#dialog .modal-title").text($(this).children("p").text());
+        $("#dialog").modal("show");
+      });
+
+      // Submit the form data to a Google Sheet using AJAX
+      $(".item-form").submit(function (event) {
+        event.preventDefault();
+
+        const requiredFields = $(this).find(".required-field");
+        let isValid = true;
+
+        requiredFields.each(function () {
+          const fieldValue = $(this).val().trim();
+          if (fieldValue === "") {
+            isValid = false;
+            $(this).addClass("error-field");
+            $(this).next(".error-message").text("Vui lòng điền thông tin bắt buộc.");
+          } else {
+            $(this).addClass("error-field");
+            $(this).next(".error-message").text("");
+          }
+        });
+
+        // If any required field is empty, stop further processing
+        if (!isValid) {
+          return;
+        }
+
+        const formData = new FormData(this);
+        const jsonData = {
+          chat_id: -942829553,
+          text: `Công ty: ${$(
+            "#dialog .modal-title"
+          ).text()}\nTên: ${formData.get("name")}\nSĐT: ${formData.get(
+            "phone"
+          )}\nGiới Tính: ${formData.get("gender")}\nĐịa Chỉ: ${formData.get(
+            "address"
+          )}\nNgày Sinh: ${formData.get("birthday")}\nTin Nhắn: ${formData.get("message")}`,
+        };
+        $.ajax({
+          url: "https://api.telegram.org/bot6014852646:AAGwxKpoybrUPjcP6eT2CBtQcl_OAkgbIm0/sendMessage",
+          method: "POST",
+          dataType: "json",
+          data: jsonData,
+          success: function (response) {
+            $("#dialog").modal("hide");
+          },
+          error: function (xhr, status, error) {
+            console.log(xhr);
+            console.log(status);
+            console.log(error);
+            alert("Có lỗi xảy ra trong quá trình gửi đơn ứng tuyển");
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
